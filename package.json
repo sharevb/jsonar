@@ -7,7 +7,8 @@
     "test": "test"
   },
   "scripts": {
-    "test": "xo && ava --verbose"
+    "test": "xo && ava --verbose",
+    "lintfix": "xo --fix"
   },
   "repository": {
     "type": "git",
