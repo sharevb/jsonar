@@ -293,7 +293,7 @@ exports.parse = (codes, options = {}) => {
   let object = {}
 
   if (AST.kind === 'program') {
-    object = iterator(AST.children[0].items)
+    object = iterator(AST.children[0].expression.items)
     object = applyEmptyRules(object, options.emptyRules)
   }
 
