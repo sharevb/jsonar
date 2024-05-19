@@ -8,11 +8,11 @@ const jsonFile = () => new Promise(resolve => {
   readFile(exampleFile, 'ascii', (error, data) => {
     if (error) {
       throw new Error(error)
-      }
+    }
 
-      resolve(data)
-    })
+    resolve(data)
   })
+})
 
 test('undefined param is blank array', t => {
   t.is(jsonar.arrify(), 'array();')
@@ -100,3 +100,21 @@ test('js object to PHP array and back (#18)', t => {
   t.is(JSON.stringify(jsonar.parse(phpArray)), array)
 })
 
+test('js object to PHP array and back (#5)', t => {
+  const object1 = {foo: ['42', '52']}
+  const phpArray1 = 'array("foo"=>array("42","52"));'
+  t.is(jsonar.arrify(object1), phpArray1)
+  t.is(JSON.stringify(jsonar.parse(phpArray1)), JSON.stringify(object1))
+
+  const object2 = ['42', '52']
+  const phpArray2 = 'array("42","52");'
+  t.is(jsonar.arrify(object2), phpArray2)
+  t.is(JSON.stringify(jsonar.parse(phpArray2)), JSON.stringify(object2))
+})
+
+test('more js array test (#5)', t => {
+  const object1 = [{foo: ['42', '52']}]
+  const phpArray1 = 'array(array("foo"=>array("42","52")));'
+  t.is(jsonar.arrify(object1), phpArray1)
+  t.is(JSON.stringify(jsonar.parse(phpArray1)), JSON.stringify(object1))
+})

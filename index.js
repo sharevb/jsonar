@@ -202,7 +202,7 @@ exports.arrify = (json, options) => {
 
   const validJSON = isJSON(json)
   let object = validJSON || {}
-  object = isPlainObject(json) ? json : object
+  object = isPlainObject(json) || isArray(json) ? json : object
 
   const phpArray = arrify(object, options)
   return `${phpArray};`
