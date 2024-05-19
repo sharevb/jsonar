@@ -92,3 +92,11 @@ test('parsing object with empty item in nested array should be valid', async t =
     t.deepEqual(parsed, result)
   })
 })
+
+test('js object to PHP array and back (#18)', t => {
+  const array = '[[[1,2],[3,4]],[[5,6],[7,8]]]'
+  const phpArray = 'array(array(array(1,2),array(3,4)),array(array(5,6),array(7,8)));'
+  t.is(jsonar.arrify(array), phpArray)
+  t.is(JSON.stringify(jsonar.parse(phpArray)), array)
+})
+

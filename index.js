@@ -279,7 +279,7 @@ exports.parse = (codes, options = {}) => {
       if (item.key) {
         json[item.key.value] = normalizeValue(item)
       } else {
-        arry = arry.concat(normalizeValue(item))
+        arry = arry.concat([normalizeValue(item)])
       }
     }
 
