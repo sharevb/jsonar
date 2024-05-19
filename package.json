@@ -26,8 +26,8 @@
   },
   "homepage": "https://github.com/oknoorap/jsonar#readme",
   "devDependencies": {
-    "ava": "^0.22.0",
-    "xo": "^0.18.2"
+    "ava": "^6.1.3",
+    "xo": "^0.58.0"
   },
   "ava": {
     "files": [
@@ -46,7 +46,7 @@
     "escape-quotes": "^1.0.2",
     "lodash.isempty": "^4.4.0",
     "lodash.isplainobject": "^4.0.6",
-    "php-parser": "^2.0.6"
+    "php-parser": "^3.1"
   },
   "files": [
     "index.js"
