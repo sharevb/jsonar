@@ -1,19 +1,18 @@
-import {readFile} from 'fs'
-import path from 'path'
-import test from 'ava'
-import jsonar from '../index'
+const {readFile} = require('node:fs')
+const path = require('node:path')
+const test = require('ava')
+const jsonar = require('../index.js')
 
 const exampleFile = path.join(__dirname, 'example.json')
-const jsonFile = () => {
-  return new Promise(resolve => {
-    readFile(exampleFile, 'ascii', (err, data) => {
-      if (err) {
-        throw new Error(err)
+const jsonFile = () => new Promise(resolve => {
+  readFile(exampleFile, 'ascii', (error, data) => {
+    if (error) {
+      throw new Error(error)
       }
+
       resolve(data)
     })
   })
-}
 
 test('undefined param is blank array', t => {
   t.is(jsonar.arrify(), 'array();')
@@ -54,11 +53,11 @@ test('json is valid PHP array (prettify) 4 indentation with space', async t => {
 })
 
 test('js object to PHP array', t => {
-  const obj = {
+  const object = {
     universe: 'expanding',
-    galaxy: jsonar.literal('__php_fn("andromeda")')
+    galaxy: jsonar.literal('__php_fn("andromeda")'),
   }
-  t.is(jsonar.arrify(obj), 'array("universe"=>"expanding","galaxy"=>__php_fn("andromeda"));')
+  t.is(jsonar.arrify(object), 'array("universe"=>"expanding","galaxy"=>__php_fn("andromeda"));')
 })
 
 test('parsing object should be valid', async t => {
@@ -66,8 +65,8 @@ test('parsing object should be valid', async t => {
     const phpArray = jsonar.arrify(result)
     t.deepEqual(jsonar.parse(phpArray, {
       emptyRules: {
-        emptyobj: {}
-      }
+        emptyobj: {},
+      },
     }), JSON.parse(result))
   })
 })
@@ -84,10 +83,10 @@ test('parsing object with empty item in nested array should be valid', async t =
         emptyobj: {},
         inception: {
           nested: {
-            emptyobj: {}
-          }
-        }
-      }
+            emptyobj: {},
+          },
+        },
+      },
     })
 
     t.deepEqual(parsed, result)
